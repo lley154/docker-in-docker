@@ -6,7 +6,7 @@ Install docker desktop https://docs.docker.com/desktop/
 
 Open a terminal window and execute the following commands
 ```
-$ git clone
+$ git clone https://github.com/lley154/docker-in-docker.git
 $ cd docker-in-docker
 $ docker build -t ubuntu-dind -f Dockerfile .
 $ docker run --privileged -d --name ubuntu-docker ubuntu-dind
