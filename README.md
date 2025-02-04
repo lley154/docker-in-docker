@@ -18,6 +18,7 @@ The container should be running, so now log into it and run the following comman
 $ docker exec -it ubuntu-docker bash
 # passwd ubuntu
 # su - ubuntu
+$ docker run hello-world
 ```
 
 
