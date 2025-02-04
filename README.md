@@ -2,9 +2,9 @@
 Create a docker image that can run docker images
 
 ### Setup
-Install docker desktop https://docs.docker.com/desktop/ 
+Install and run docker desktop https://docs.docker.com/desktop/ 
 
-Open a terminal window and execute the following commands
+Next, open a terminal window and execute the following commands
 ```
 $ git clone https://github.com/lley154/docker-in-docker.git
 $ cd docker-in-docker
