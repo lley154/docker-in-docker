@@ -16,11 +16,6 @@ $ docker run --privileged -d --name ubuntu-docker ubuntu-dind
 The container should be running, so now log into it and run the following commands
 ```
 $ docker exec -it ubuntu-docker bash
-# apt update
-# apt install sudo
-# apt install nano    
-# usermod -aG sudo ubuntu    
-# usermod -aG docker ubuntu
 # passwd ubuntu
 # su - ubuntu
 ```
