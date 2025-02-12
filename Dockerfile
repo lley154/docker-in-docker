@@ -6,6 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install systemd and other essential packages
 RUN apt-get update && apt-get install -y \
+    apt-utils \
+    dialog \
     systemd \
     systemd-sysv \
     apt-transport-https \
@@ -15,6 +17,8 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     nano \ 
     sudo \
+    openssh-server \
+    golang-go \
     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
     && apt-get update \
@@ -41,6 +45,24 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
 
 # Configure container for systemd
 VOLUME [ "/sys/fs/cgroup" ]
+
+# Configure SSH
+RUN mkdir /var/run/sshd && \
+    echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && \
+    echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config && \
+    echo 'ubuntu:ubuntu' | chpasswd
+
+# Expose SSH port
+EXPOSE 22
+
+# Configure debconf to use noninteractive frontend
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
+# Configure system to prevent libc6 update issues
+RUN echo "exit 101" > /usr/sbin/policy-rc.d && \
+    chmod +x /usr/sbin/policy-rc.d && \
+    echo 'libc6 libraries/restart-without-asking boolean true' | debconf-set-selections && \
+    echo 'libc6 libraries/restart-services boolean true' | debconf-set-selections
 
 # Set the default command to start systemd
 CMD ["/lib/systemd/systemd"] 

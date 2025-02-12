@@ -16,10 +16,14 @@ $ docker run --privileged -d -p 5984:5984 -p 8080:8080 --name ubuntu-docker -v /
 The container should be running, so now log into it and run the following commands
 ```
 $ docker exec -it ubuntu-docker bash
-# passwd ubuntu
-# su - ubuntu
-$ sudo systemctl start docker
-$ docker run hello-world
+# systemctl start ssh
+# systemctl start docker
 ```
+
+Open a new terminal window and run the following command to connect to the container with a password of "ubuntu"
+```
+$ ssh ubuntu@localhost -p 2222
+```
+
 
 
