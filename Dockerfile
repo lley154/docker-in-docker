@@ -55,14 +55,5 @@ RUN mkdir /var/run/sshd && \
 # Expose SSH port
 EXPOSE 22
 
-# Configure debconf to use noninteractive frontend
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-
-# Configure system to prevent libc6 update issues
-RUN echo "exit 101" > /usr/sbin/policy-rc.d && \
-    chmod +x /usr/sbin/policy-rc.d && \
-    echo 'libc6 libraries/restart-without-asking boolean true' | debconf-set-selections && \
-    echo 'libc6 libraries/restart-services boolean true' | debconf-set-selections
-
 # Set the default command to start systemd
 CMD ["/lib/systemd/systemd"] 
