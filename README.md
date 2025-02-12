@@ -9,7 +9,7 @@ Next, open a terminal window and execute the following commands
 $ git clone https://github.com/lley154/docker-in-docker.git
 $ cd docker-in-docker
 $ docker build -t ubuntu-dind -f Dockerfile .
-$ docker run --privileged -d -p 5984:5984 -p 8080:8080 --name ubuntu-docker -v /sys/fs/cgroup:/sys/fs/cgroup:rw ubuntu-dind
+$ docker run --privileged -d -p 2222:22 --name ubuntu-docker -v /sys/fs/cgroup:/sys/fs/cgroup:rw ubuntu-dind
 ```
 
 ### Running the container
